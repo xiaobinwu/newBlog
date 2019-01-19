@@ -1,0 +1,42 @@
+[
+    {
+       "name":"Wuji",
+       "url":"https://github.com/xiaobinwu/Wuji",
+       "desc":"使用vue+vuex+vue-router技术栈开发的吾记网页版（纯前端）"
+    },
+    {
+       "name":"Dj",
+       "url":"https://github.com/xiaobinwu/dj",
+       "desc":"五洲到家，微信小程序实践"
+    },
+    {
+        "name":"electron-vue-project",
+        "url":"https://github.com/xiaobinwu/electron-vue-project",
+        "desc":"electron项目实践"
+    },
+    {
+        "name":"nodeAPP",
+        "url":"https://github.com/xiaobinwu/nodeAPP",
+        "desc":"一个关于旅游景点介绍的应用（express + mongoDB + react），只做了爬虫部分"
+    },
+    {
+        "name":"my-vue-scaffold",
+        "url":"https://github.com/xiaobinwu/my-vue-scaffold",
+        "desc":"vue项目脚手架"
+    },
+    {
+        "name":"css-secret-demo",
+        "url":"https://github.com/xiaobinwu/css-secret-demo",
+        "desc":"Css Secret 案例全套"
+    },
+    {
+        "name":"MyResourceLibrary",
+        "url":"https://github.com/xiaobinwu/MyResourceLibrary",
+        "desc":"我的资源库，一些常用的应用场景所使用的库"
+    },
+    {
+        "name":"mx",
+        "url":"https://github.com/xiaobinwu/mx",
+        "desc":"mxGraph库使用实践"
+    }
+]
