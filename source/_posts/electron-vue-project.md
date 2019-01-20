@@ -1,7 +1,7 @@
 ---
 title: electron+vue项目实践
 date: 2017/08/25 11:56:46
-tags: vue electron
+tags: electron
 categories:
 - js
 ---
@@ -122,7 +122,7 @@ $ npm run setup
 
 对于打包工具，这里使用的是`electron-packager`，安装命令：
 
-```
+```bash
 rimraf package && electron-packager . TEST --platform=win32 --arch=x64 --overwrite --icon=hosts.ico --out=./package --electron-version=1.6.11 --version-string.CompanyName=TEST --version-string.ProductName=TEST --ignore=\"(build|client$|static|theme|.gitignore|LICENSE|README.md|.editorconfig|.eslintrc|node_modules|gruntPackage.json|Gruntfile.js|yarn.lock|socket|package_dir|git_img)\"
 
 ```
@@ -142,7 +142,7 @@ rimraf package && electron-packager . TEST --platform=win32 --arch=x64 --overwri
 
 打包成安装程序，需要使用到`grunt`、`grunt-electron-installer`,请保证事先安装好
 在`package.json`设置：
-```
+```bash
 {
     "version": "1.0.0", // 这个是必须的，为了后面使用electron updater实现自动更新
     "productName": "my-electron",
@@ -151,7 +151,7 @@ rimraf package && electron-packager . TEST --platform=win32 --arch=x64 --overwri
 }
 ```
 Gruntfile.js文件如下[详细](https://www.npmjs.com/package/grunt-electron-installer)：
-```
+```javascript
 var grunt = require('grunt')
 
 // 配置
@@ -182,7 +182,7 @@ grunt.registerTask('default', ['create-windows-installer'])
 ![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/setup.gif)
 而我们需要的是安装完后自动生成快捷方式，这里使用的`electron-squirrel-startup`npm包，然后在主线程文件中app/index.js中写入`startupEventHandle`方法，安装时触发squirrel.window的一些命令，将其放在创建主体窗口的回调函数中，代码如下：
 
-```
+```javascript
 app.on('ready', function(){
     ......
     startupEventHandle()
@@ -259,7 +259,7 @@ $ npm run lint
 
 #### electron自动更新
 前面我们也有提到过自动更新，这里使用的官方提供的`electron.autoUpdater`模块去更新，坑爹的是官方对这一功能的描述真是少之又少，autoUpdater的一些方法和事件[这里](https://www.w3cschool.cn/electronmanual/electronmanual-auto-updater.html)可以去了解清楚，`autoUpdater.setFeedURL(url)`这一方法是重中之重，`url`放着高版本的文件(.exe,.nupkg,RELEASES)，这里我是存储在阿里oss,然后`autoUpdater.checkForUpdates()`会去检查是否需要更新，它会触发`error、checking-for-update、update-available、update-downloaded`中的一些事件，而我们需要利用主进程跟渲染进程之间的通讯（ipc/remote/webContent），来触发更新，具体代码如下：
-```
+```javascript
 function updateHandle () {
     ipcMain.on('check-for-update', function (event, arg) {
         if (process.platform !== 'win32') {

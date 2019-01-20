@@ -79,4 +79,9 @@ theme: cactus
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: ftpsync
+  host: 47.107.148.74
+  user: wushaobin
+  pass: 19910601
+  remote: /www/wwwroot/blog
+  port: 21

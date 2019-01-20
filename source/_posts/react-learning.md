@@ -1,7 +1,7 @@
 ---
 title: React学习笔记
-date: 2019-01-19 18:15:15
-tags: javascript
+date: 2018-07-31 18:15:15
+tags: react
 categories:
 - js
 ---
@@ -258,7 +258,7 @@ Reducer：描述应用如何更新state，本身是一个函数，接受Action�
 [不结合react-redux的Redux使用例子](https://codepen.io/xiaobinwu/pen/YvMLrd)
 
 需要明白的一点Redux跟React一点关系都没有，但是React搭配Redux来实现状态管理时最好的实现方案。那么如何搭配呢？本来我们可以subscribe(listener)在react的组件注册redux的监听器，但是这种方式繁琐，而且会导致多次渲染。所以搭配着react-redux来使用。基本使用如下：
-``` javacript
+``` javascript
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'

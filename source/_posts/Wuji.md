@@ -1,7 +1,7 @@
 ---
 title: Vue2.0 全家桶开发的网页应用（参照吾记APP)
 date: 2017/4/21 11:32:25
-tag: gulp  webpack  vuex  vue-router  vue.js
+tag: vue
 categories:
 - js
 ---
