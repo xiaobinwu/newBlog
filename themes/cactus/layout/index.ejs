@@ -1,6 +1,7 @@
 <section id="about">
   <% if (config.description) { %>
-    <%- markdown(config.description) %>
+    <div id="source"><%- markdown(config.description) %></div>
+    <div id="output"></div>
   <% } %>
   <% if (theme.social_links) { %>
     <p>

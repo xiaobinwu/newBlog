@@ -12,6 +12,14 @@ if (!!$.prototype.justifiedGallery) {
 
 $(document).ready(function() {
 
+  // 打字机效果
+  var typing = new Typing({
+    source: document.getElementById('source'),
+    output: document.getElementById('output'),
+    delay: 80
+  });
+  typing.start();
+ 
   /**
    * Shows the responsive navigation menu on mobile.
    */
