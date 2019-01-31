@@ -2,6 +2,7 @@
 <html<%= config.language ? " lang=" + config.language.substring(0, 2) : ""%>>
 <%- partial('_partial/head') %>
 <body class="max-width mx-auto px3 <%- theme.direction -%>">
+    <div id="particles-js" style="width: 100%;height: 100%;position: absolute; top: 0; left: 0; bottom: 0; right: 0;"></div>
     <% if (is_post()) { %>
       <%- partial('_partial/post/actions_desktop') %>
     <% } %>
