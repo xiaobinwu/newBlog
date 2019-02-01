@@ -160,7 +160,7 @@ React.createElement(
 
 [生命周期图示(React16)：](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
-![](https://user-gold-cdn.xitu.io/2018/7/31/164ee7c89679c44b?w=1138&h=680&f=png&s=69928)
+![](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/react-learning/1.png)
 
 #### Mounting/挂载
 constructor()    //React组件的构造函数，用于super(props)，初始化state，bind绑定事件等
@@ -200,7 +200,7 @@ componentWillUnmount()  // 卸载组件，注销监听事件或是定时器，s
 
 Refs 提供了一种方式，用于访问在 render 方法中创建的 DOM 节点或 React 元素，官方建议少用。获取Ref有三种场景：
 
-![](https://user-gold-cdn.xitu.io/2018/7/31/164eee2ba2bc9294?w=725&h=394&f=png&s=18656)
+![](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/react-learning/2.png)
 获取Ref的常用方式（通过this.myRef.current来获取Dom节点或实例）：
 ```javascript
 class MyComponent extends React.Component {
