@@ -11,7 +11,7 @@ categories:
 ##转载请标明来处
 
 ## 先上一波gif图片
-![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/1.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/7.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/8.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/2.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/3.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/4.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/5.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/6.gif)![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/9.gif)
+<img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/1.gif"  style="width:300px;display: inline-block; margin-bottom:20px; margin-right: 20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/7.gif"  style="width:300px;display: inline-block; margin-bottom:20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/8.gif"  style="width:300px;display: inline-block; margin-bottom:20px; margin-right: 20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/2.gif"  style="width:300px;display: inline-block; margin-bottom:20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/3.gif"  style="width:300px;display: inline-block; margin-bottom:20px;margin-right: 20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/4.gif"  style="width:300px;display: inline-block; margin-bottom:20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/5.gif"  style="width:300px;display: inline-block; margin-bottom:20px;margin-right: 20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/6.gif"  style="width:300px;display: inline-block; margin-bottom:20px;"><img src="http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/9.gif"  style="width:300px;display: inline-block; margin-bottom:20px;margin-right: 20px;">
 ## gif对应功能块
 > * 首页（定位成功情况且有门店）
 > * 门店列表（定位成功情况却没有门店）
@@ -24,7 +24,7 @@ categories:
 > *  优惠券
 
 ## 目录结构
-![mulu](https://github.com/xiaobinwu/dj/raw/master/git-image/mulu.png)
+![mulu](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/mulu.png)
 > * css => 放置公用wxss,目前只有一个font.wcss
 > * image => 静态资源目录
 > * lib => 第三方库（如：qqmap-wx-jssdk.min.js）
@@ -181,7 +181,7 @@ module.exports = Slider
 忽略其他乱起八糟的代码，主要是这个`<view style="width: {{idxData.navbar.length * 168}}rpx">`,需要保证scroll-view下面的view的width必须要大于100%，充满整个scroll-view
 
 ### 4. swiper高度无法自动撑开，暂时不支持
-![cmd-markdown-logo](https://github.com/xiaobinwu/dj/raw/master/git-image/swiper.png) 于是对于红线部分的产品分类swiper，就只能手动计算swiper高度，来实现swiper的效果，但是由于对应每个swiper-item还会有个下拉加载，所以产品数目会一直变化，所以计算起来相当于耗性能，希望官方能尽快让swiper高度允许自动撑开
+![cmd-markdown-logo](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/dj/swiper.png) 于是对于红线部分的产品分类swiper，就只能手动计算swiper高度，来实现swiper的效果，但是由于对应每个swiper-item还会有个下拉加载，所以产品数目会一直变化，所以计算起来相当于耗性能，希望官方能尽快让swiper高度允许自动撑开
 
 ### 5. template模板
 template模板，

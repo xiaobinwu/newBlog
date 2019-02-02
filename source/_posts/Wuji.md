@@ -5,7 +5,7 @@ tag: vue
 categories:
 - js
 ---
-![图片描述](https://sfault-image.b0.upaiyun.com/421/917/4219175942-58f9a9a29ba1b_articlex)
+![图片描述](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/wuji/4219175942-58f9a9a29ba1b_articlex.png)
 
 
 ##[github链接](https://github.com/xiaobinwu/Wuji)
@@ -13,7 +13,7 @@ categories:
 借鉴吾记APP，使用 vue2.0+vue-router+vuex 为主要技术栈，elementui做为ui框架，多模块 spa 模式，webpack2.0 负责模块打包，gulp 负责处理静态资源打包、压缩，欢迎打赏star！！！
 
 ##安利一下
-![图片描述](https://sfault-image.b0.upaiyun.com/271/509/2715098927-58f9ab6f3126e_articlex)
+![图片描述](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/wuji/2715098927-58f9ab6f3126e_articlex.png)
 
 ## 吾记前端构建流程
 

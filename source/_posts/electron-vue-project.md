@@ -101,7 +101,7 @@ $ npm run package
 
 ```
 
-![img](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/1.png)
+![img](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/1.png)
 
 setup:
 
@@ -113,7 +113,7 @@ $ npm run setup
 
 ```
 
-![img](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/2.png)
+![img](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/2.png)
 
 生成安装包的过程：
 > * npm run build
@@ -179,7 +179,7 @@ grunt.registerTask('default', ['create-windows-installer'])
 
 ```
 于是就会生成如上图所示的`my-electronSetup.exe`，点击运行，进入一个安装的过程，会有安装的小动画，如下图：
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/setup.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/setup.gif)
 而我们需要的是安装完后自动生成快捷方式，这里使用的`electron-squirrel-startup`npm包，然后在主线程文件中app/index.js中写入`startupEventHandle`方法，安装时触发squirrel.window的一些命令，将其放在创建主体窗口的回调函数中，代码如下：
 
 ```javascript
@@ -250,11 +250,11 @@ $ npm run lint
 ```
 > 上面的npm run script命令可能有些多，涉及的内容也比较多，文章后面会一一讲解！下面上一波效果图：
 
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/1.gif)
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/2.gif)
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/3.gif)
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/4.gif)
-![gif](https://raw.githubusercontent.com/xiaobinwu/electron-vue-project/master/git_img/5.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/1.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/2.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/3.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/4.gif)
+![gif](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/eletron/5.gif)
 
 
 #### electron自动更新
