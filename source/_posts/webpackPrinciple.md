@@ -32,3 +32,15 @@ webpack构建流程，详细过程如下：
 | 加载插件   | 依次调用插件中的apply方法，同时也会将Compiler实例传入，就可以调用Webpack提供的api，`Compiler实例可以说是就是Webpack的实例` |
 | environment   | 将node.js风格的文件系统应用到compiler对象，便可以直接通过compiler来对文件进行操作  |
 | entry-option   | 读取配置中的entry，依次实例化出对应EntryPlugin，为后面该entry的递归解析工作做准备  |
+| after-plugins   | 调完所有内置和配置的插件的apply方法  |
+| after-resolvers   | 根据配置初始化resolvers，resolvers负责在文件系统中寻找制定路径的文件  |
+### 编译阶段
+| 事件        | 作用   |
+| --------   | :----  |
+| run   | 启动一次新的编译，调用Compiler.run()  |
+| watch-run   | 和run类似，区别在于它是在监听模式下进行编译的，这个事件可以获取哪些文件发生了变化从而导致新的一次编译  |
+| compile   | 告诉插件新的一次编译即将启动，并且给插件带上compiler对象  |
+| compilation   | 每当检测到文件的变化，都会有一次新的compilation被创建，一个compilation对象包含了当前的模块资源、编译生成的资源、变化的文件等等的属性和方法，同时记住，在很多事件的的回调中都会将compilation传入，以便使用  |
+| make   | 一个新的Compilation创建完毕，那么就会从entry配置中开始读取文件，使用配置好的loader对文件进行编译，编译完后再找出文件依赖的文件，递归地去编译和解析  |
+| after-compile   | 一次Compilation执行完成  |
+| invalid   | 文件编译错误等异常触发该事件  |
