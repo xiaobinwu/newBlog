@@ -131,9 +131,12 @@ import('./show').then((show) => {
 经webpack打包会生成两个文件0.bundle.js和bundle.js，怎么做的原因，是可以吧show.js以异步加载形式引入，这也是分离代码，达到减少文件体积的优化方法，两个文件分析如下。
 ### 0.bundle.js
 ```javascript
-webpackJsonp([0],[
-/* 0 */,
-/* 1 */
+// 加载本文件（0.bundle.js）包含的模块， webpackJsonp用于从异步加载的文件中安装模块，挂载至全局（bundle.js）供其他文件使用
+webpackJsonp(
+// 在其他文件中存放的模块id
+[0],[
+// 本文件所包含的模块
+
 /***/ (function(module, exports) {
 
 function show(content) {
@@ -149,9 +152,10 @@ module.exports = show;
 ```
 ### bundle.js
 ```javascript
- (function(modules) { // webpackBootstrap
- 	// install a JSONP callback for chunk loading
+ (function(modules) { // webpackBootstrap启动函数
+ 	// 安装用于块加载的JSONP回调
  	var parentJsonpFunction = window["webpackJsonp"];
+	// chunkIds 异步加载
  	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules, executeModules) {
  		// add "moreModules" to the modules object,
  		// then flag all "chunkIds" as loaded and fire callback
