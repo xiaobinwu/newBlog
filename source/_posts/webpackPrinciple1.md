@@ -155,10 +155,12 @@ module.exports = show;
  (function(modules) { // webpackBootstrap启动函数
  	// 安装用于块加载的JSONP回调
  	var parentJsonpFunction = window["webpackJsonp"];
-	// chunkIds 异步加载
+	// chunkIds 异步加载文件（0.bundle.js）中存放的需要安装的模块对应的chunkId
+	// moreModules 异步加载文件（0.bundle.js）中存放需要安装的模块列表
+	// executeModules 异步加载文件（0.bundle.js）中存放需要安装的模块安装后需要执行的模块对应的index
  	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules, executeModules) {
- 		// add "moreModules" to the modules object,
- 		// then flag all "chunkIds" as loaded and fire callback
+ 		// 将 "moreModules" 添加到modules对象中,
+		// 将所有chunkIds对应的模块都标记成已经加载成功
  		var moduleId, chunkId, i = 0, resolves = [], result;
  		for(;i < chunkIds.length; i++) {
  			chunkId = chunkIds[i];
@@ -173,63 +175,72 @@ module.exports = show;
  			}
  		}
  		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules, executeModules);
- 		while(resolves.length) {
+ 		// 执行
+		while(resolves.length) {
  			resolves.shift()();
  		}
 
  	};
 
- 	// The module cache
+ 	// 缓存已经安装的模块
  	var installedModules = {};
 
- 	// objects to store loaded and loading chunks
+ 	// 储存每个chunk的加载状态
+	// 键为chunk的id，值为0代表加载成功
  	var installedChunks = {
  		1: 0
  	};
 
- 	// //去传入的modules数组中加载对应moduleId（index）的模块，与node的require语句相似，同上，此处省略
+ 	// 去传入的modules数组中加载对应moduleId（index）的模块，与node的require语句相似，同上，此处省略
  	function __webpack_require__(moduleId) {
 		...
  	}
 
- 	// This file contains only the entry chunk.
- 	// The chunk loading function for additional chunks
+ 	// 用于加载被分割出去的需要异步加载的chunk对应的文件，
+	// chunkId需要异步加载的chunk对应的id，返回的是一个promise
  	__webpack_require__.e = function requireEnsure(chunkId) {
+		// 从installedChunks中获取chunkId对应的chunk文件的加载状态
  		var installedChunkData = installedChunks[chunkId];
+		// 如果加载状态为0，则表示该chunk已经加载成功，直接返回promise resolve
  		if(installedChunkData === 0) {
  			return new Promise(function(resolve) { resolve(); });
  		}
 
- 		// a Promise means "currently loading".
+		// installedChunkData不为空且不为0时表示chunk正在网络加载中
  		if(installedChunkData) {
  			return installedChunkData[2];
  		}
 
- 		// setup Promise in chunk cache
+ 		// installedChunkData为空，表示该chunk还没有加载过，去加载该chunk对应的文件
  		var promise = new Promise(function(resolve, reject) {
  			installedChunkData = installedChunks[chunkId] = [resolve, reject];
  		});
  		installedChunkData[2] = promise;
 
- 		// start chunk loading
+ 		// 通过dom操作，向html head中插入一个script标签去异步加载chunk对应的javascript文件
  		var head = document.getElementsByTagName('head')[0];
  		var script = document.createElement('script');
  		script.type = "text/javascript";
  		script.charset = 'utf-8';
  		script.async = true;
  		script.timeout = 120000;
-
+		// HTMLElement 接口的 nonce 属性返回只使用一次的加密数字，被内容安全政策用来决定这次请求是否被允许处理。
  		if (__webpack_require__.nc) {
  			script.setAttribute("nonce", __webpack_require__.nc);
  		}
+		// 文件的路径由配置的publicPath、chunkid拼接而成
  		script.src = __webpack_require__.p + "" + chunkId + ".bundle.js";
+		// 设置异步加载的最长超时时间
  		var timeout = setTimeout(onScriptComplete, 120000);
  		script.onerror = script.onload = onScriptComplete;
+		// 在script加载和执行完成时回调
  		function onScriptComplete() {
- 			// avoid mem leaks in IE.
+ 			// 防止内存泄漏
  			script.onerror = script.onload = null;
  			clearTimeout(timeout);
+			
  			var chunk = installedChunks[chunkId];
+			// 判断chunkid对应chunk是否安装成功
  			if(chunk !== 0) {
  				if(chunk) {
  					chunk[1](new Error('Loading chunk ' + chunkId + ' failed.'));
@@ -245,7 +256,7 @@ module.exports = show;
  	// 这里会给__webpack_require__设置多个属性和方法，同上，此处省略
  	
 
- 	// on error function for async loading
+ 	// 异步加载的出错函数
  	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 
  	// Load entry module and return exports
@@ -253,9 +264,10 @@ module.exports = show;
  })
 /************************************************************************/
  ([
+// 存放没有经过异步加载的，随着执行入口文件加载的模块，也就是同步的模块
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
-
+// 通过__webpack_require__.e异步加载show.js对应的chunk
 // 异步加载 show.js
 __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 1)).then((show) => {
   // 执行 show 函数
@@ -266,3 +278,5 @@ __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 1)).t
 /***/ })
  ]);
 ```
+## 总结
+这里我们通过对比同步加载和异步加载的简单应用，去分析两种情况webpack打包出来文件的差异性，我们发现，对于异步加载的bundle.js与同步的bundle.js基本相似，都是模拟node.js的require语句去导入模块，有所不同的是多了一个__webpack_require__.e函数，用来加载分割出的需要异步加载的chunk对应的文件，以及一个wepackJsonp函数，用于从异步加载的文件中去安装模块。
