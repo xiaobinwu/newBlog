@@ -85,3 +85,7 @@ deploy:
   pass: 19910601
   remote: /www/wwwroot/blog
   port: 21
+  connections: 1
+  verbose: false
+  ignore: ["/ewh_logreport_no_delete","/logreport"]
+
