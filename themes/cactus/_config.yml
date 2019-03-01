@@ -150,7 +150,7 @@ gravatar:
 # https://api.github.com/users/xiaobinwu
 gitment:
   enable: true
-  owner: xiaobinwu
+  owner: wuxiaobin
   repo: newBlog
-  client_id: 51f634256149a6cffd5e
-  client_secret: f1df523db6ea1ef0a5a99f67272c982ca285d3ae
+  client_id: a5c1c274425c523f3d7b
+  client_secret: 284a216136466ecabdfe0074b427709d22fc6db5
