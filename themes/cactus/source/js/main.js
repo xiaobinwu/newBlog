@@ -110,13 +110,17 @@ $(document).ready(function() {
     }
   }
 
-  // 打字机效果
-  var typing = new Typing({
-    source: document.getElementById('source'),
-    output: document.getElementById('output'),
-    delay: 80
-  });
-  typing.start();
+  var $source = document.getElementById('source');
+  var $output = document.getElementById('output');
+  if ($source && $output) {
+    // 打字机效果
+    var typing = new Typing({
+      source: $source,
+      output: $output,
+      delay: 80
+    });
+    typing.start();
+  }
 
   // particlesJS效果
   particlesJS.load('particles-js', '/lib/particles/particlesjs.json', function() {

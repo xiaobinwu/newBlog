@@ -147,16 +147,10 @@ gravatar:
 
   # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
+# https://api.github.com/users/xiaobinwu
 gitment:
   enable: true
-  mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
-  count: true # Show comments count in post meta area
-  lazy: false # Comments lazy loading with a button
-  cleanly: false # Hide 'Powered by ...' on footer, and more
-  language: # Force language, or auto switch by theme
-  github_user: 9909704
-  github_repo: newBlog
+  owner: xiaobinwu
+  repo: newBlog
   client_id: 51f634256149a6cffd5e
   client_secret: f1df523db6ea1ef0a5a99f67272c982ca285d3ae
-  proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
-  redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
