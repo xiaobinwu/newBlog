@@ -149,8 +149,13 @@ gravatar:
 # Introduction: https://imsun.net/posts/gitment-introduction/
 # https://api.github.com/users/xiaobinwu
 gitment:
-  enable: true
+  enable: false
   owner: wuxiaobin
   repo: newBlog
   client_id: a5c1c274425c523f3d7b
   client_secret: 284a216136466ecabdfe0074b427709d22fc6db5
+
+valine:
+  enable: true
+  app_id: K6RYJYzNnHoQpqV0aq035BNO-gzGzoHsz
+  app_key: UUJFDqUvcF1cfoaRUuMmeC4E
