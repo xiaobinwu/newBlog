@@ -1,43 +1,30 @@
-.blog-post-comments {
-    margin-top: 2rem
-}
-.blog-post-comments.v .power {
-    display: none
-}
-
-.blog-post-comments.v a:hover {
-    color: #1abc9c
-}
-
-.blog-post-comments.v * {
-    color: #c9cacc
-}
-
-.blog-post-comments.v .vwrap {
-    background: #2a2c2f;
-    border: none
-}
-
-.blog-post-comments.v .vwrap .vheader .vinput {
-    border-bottom: 1px #dedede double
-}
-
-.blog-post-comments.v .vempty pre {
-    color: #555
-}
-
-.blog-post-comments.v .vlist .vcard .vh .vmeta .vat,.blog-post-comments.v .vlist .vcard .vhead .vnick:hover {
-    color: #1abc9c
-}
-
-.blog-post-comments.v .vlist .vcard .vquote {
-    border-left: 1px dashed #2a2c2f
-}
-
-.blog-post-comments.v .vlist .vcard .vh {
-    border-bottom: 1px dashed #2a2c2f
-}
-
-.blog-post-comments.v .vlist .vcard .vhead .vsys {
-    background: 0 0
-}
+.blog-post-comments 
+  margin-top 2rem
+  &.v 
+    .power 
+      display none
+    a 
+      &:hover 
+        color #1abc9c
+    * 
+      color #c9cacc
+    .vwrap 
+      background #2a2c2f
+      border none
+      .vheader 
+        .vinput 
+          border-bottom 1px #dedede double
+    .vempty 
+      pre 
+        color #555
+    .vlist 
+      .vcard 
+        .vquote 
+          border-left 1px dashed #2a2c2f
+        .vh 
+          border-bottom 1px dashed #2a2c2f
+        .vhead 
+          .vsys 
+            background 0 0
+.blog-post-comments.v .vlist .vcard .vh .vmeta .vat,.blog-post-comments.v .vlist .vcard .vhead .vnick:hover 
+  color #1abc9c
