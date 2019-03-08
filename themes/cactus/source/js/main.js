@@ -123,8 +123,10 @@ $(document).ready(function() {
   }
 
   // particlesJS效果
-  particlesJS.load('particles-js', '/lib/particles/particlesjs.json', function() {
-    console.log('callback - particles.js config loaded');
-  });
-
+  var $particlesJs = document.getElementById('particles-js');
+  if ($particlesJs) {
+    particlesJS.load('particles-js', '/lib/particles/particlesjs.json', function() {
+      console.log('callback - particles.js config loaded');
+    });  
+  }
 });
