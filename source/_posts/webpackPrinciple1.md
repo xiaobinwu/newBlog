@@ -5,7 +5,7 @@ tag: webpack
 categories:
 - webpack
 ---
-继上篇文章介绍了Webpack的基本概念，完整流程，以及打包过程中广播的一些事件的作用，这篇文章主要讲生成的chunk文件如何输出成具体的文件。分同步和异步两种情况来分析输出的文件`使用的webpack版本：3.8.0`。 
+继上篇[文章](http://wushaobin.top/2019/02/12/webpackPrinciple/)介绍了Webpack的基本概念，完整流程，以及打包过程中广播的一些事件的作用，这篇文章主要讲生成的chunk文件如何输出成具体的文件。分同步和异步两种情况来分析输出的文件`使用的webpack版本：3.8.0`。 
 
 ***模块文件show.js***
 
