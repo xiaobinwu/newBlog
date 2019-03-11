@@ -140,4 +140,18 @@ async function loader(source, inputSourceMap, overrides) {
 }
 
 ```
-可以看到确实和我们Loader编写方式是一样的，通过`module.exports = makeLoader();`导出一个函数，`makeLoader()`是一个高阶函数，又返回了一个函数，通过`const callback = this.async();`可以知道，这是一个异步的loader，不难看出最重要的实现都在这一步函数loader里面了，那么到底在loader函数里面究竟做了些什么呢？我们来看看，在阅读源码前，最好先看看`babel-loader`的webpack相关[文档](https://www.webpackjs.com/loaders/babel-loader/)，先做个基本了解.
+可以看到确实和我们Loader编写方式是一样的，通过`module.exports = makeLoader();`导出一个函数，`makeLoader()`是一个高阶函数，又返回了一个函数，通过`const callback = this.async();`可以知道，这是一个异步的loader，不难看出最重要的实现都在这一步函数loader里面了，那么到底在loader函数里面究竟做了些什么呢？我们来看看，在阅读源码前，最好先看看`babel-loader`的[README](https://github.com/babel/babel-loader)，先做个基本了解.
+
+上面代码可以看出`loader(source, inputSourceMap, overrides)`函数入参有三个，分别是`source=>待转换的code`，`inputSourceMap=>上一个loader处理后的sourceMap,有的话`，`overrides=>自定义加载器`，整块源码可以分成几部分，
+* `let loaderOptions = loaderUtils.getOptions(this) || {};`，获取options，并且获取当前处理转换的文件的路径`this.resourcePath`。
+* 判断是否自定义加载器转换，这里会进行一系列对options.customize进行判断，options.customize一个相对路径，loader函数参数overrides为空时起效，执行`let override = require(loaderOptions.customize);`，有了override之后，后续逻辑（如转换、获取option）override都会进行介入处理。
+* 将函数传入参数和LoaderOptions归并，得到programmaticOptions。
+* 调用`babel.loadPartialConfig`可以拿到babel配置并赋值给config变量,其实就是为了允许系统轻松操作和验证用户的配置，此功能解决了插件和预设
+* 生成cacheIdentifier
+* 判断options.cacheDirectory是否需要缓存Loader转换内容，如为true，调用cache.js的module.export Cache方法（上面已做介绍）
+* ` config.babelrc`不为空，则有.babelrc文件，依赖.babelrc文件变化，使用`this.addDependency(config.babelrc);`
+* metadataSubscribers 订阅元数据，主要作用是订阅一些编译过程中的一些元数据，订阅以后这些元数据将会被添加 到webpack的上下文中。通常我们是用不上的，估计在某些babel-plugin中可能会使用到。
+* 最后将处理后的结果返回
+
+## 小结
+每一个Loader其实返回值就是一个Function，而且就是把带转换内容传入，得到转换后的内容，做的事情就是这样，这篇文章先对Loader的基本概念进行介绍，并且了解webpack为Loader的编写提供一些常用的API,最后通过简析babel-loader的源码，我觉得应该差不多知道如何去写一个简单的Loader了。
