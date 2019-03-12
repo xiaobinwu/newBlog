@@ -1,64 +1,78 @@
 ---
-title: Hexo Blog Guide
+title: 教你10分钟搭建酷炫的个人博客
 date: 2016/4/21 11:32:21
 ---
 
-## Ready
+## 以个人博客为例
 
-### install Hexo
+## 准备工作
+
+### 安装
 ``` bash
 $ npm install -g hexo-cli
 ```
-### init Floder
+### 初始化
 ``` bash
 $ hexo init <folder>
 $ cd <folder>
 $ npm install
 ```
 
-## Quick Start
-
-### Create a new post
+### 创建新文章
 
 ``` bash
 $ hexo new "My New Post"
 ```
 
-More info: [Writing](https://hexo.io/docs/writing.html)
-
-### Run server
+### 运行开发环境
 
 ``` bash
 $ hexo server
 $ hexo s
 ```
 
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
+### 构建
 
 ``` bash
 $ hexo generate
 $ hexo g
 ```
 
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-
-
-### Deploy to remote sites
+### 部署
 
 ``` bash
 $ hexo deploy
 $ hexo d
 ```
 
-More info: [Deployment](https://hexo.io/docs/deployment.html)
+详细准备工作，可以查阅[hexo官网](https://hexo.io/zh-cn/)
 
+
+## 安装主题[cactus](https://github.com/probberechts/hexo-theme-cactus)，一个很程序员的主题，推荐！
+
+### 克隆仓库，并且将源文件复制到博客项目中`themes`目录下
+``` bash
+git clone https://github.com/probberechts/hexo-theme-cactus.git themes/cactus
+
+```
+### 更换_config.yml 的`theme`配置
+``` bash
+# theme: landscape
+theme: cactus
+
+```
+### 进入`themes/cactus/_config.yml`,
+``` bash
+# 有'dark', 'light', 'classic'，'white'四种可选
+colorscheme: dark
+
+```
+
+### 在`themes/cactus/_config.yml`,配置
 
 ## 自动部署hexo博客到阿里云服务器
 
-### 创建仓库(远端服务器创建git仓库)
+### 创建仓库(远端服务器创建git仓库),可以使用ssh登入云服务器
 ``` bash
 mkdir blog.git && cd blog.git
 git init --bare
