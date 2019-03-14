@@ -63,6 +63,7 @@ projects_url: https://github.com/xiaobinwu
 # 设置页面方向
 direction: ltr
 # 首页导航
+# $ hexo new page about，可以创建page页面
 nav:
   home: /
   about: /about/
@@ -108,20 +109,22 @@ highlight: kimbie.dark
 # 博客主题色，dark, light, classic, white
 colorscheme: dark
 page_width: 48
+# rss设置
 rss: atom.xml
 open_graph:
   fb_app_id:
   fb_admins:
   twitter_id:
   google_plus:
+# disqus评论，默认不开启，需翻墙
 disqus:
   enabled: false
   shortname: cactus-1
-
+# 谷歌统计
 google_analytics:
   enabled: false
   id: UA-86660611-1
-
+# 百度统计
 baidu_analytics:
   enabled: false
   id: 2e6da3c375c8a87f5b664cea6d4cb29c
