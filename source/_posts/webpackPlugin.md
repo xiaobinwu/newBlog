@@ -36,5 +36,6 @@ categories:
 我们回忆一下，[Webpack学习－工作原理（上）](http://wushaobin.top/2019/02/12/webpackPrinciple/)文章中们介绍过webpack的构建详细流程，初始化的时候会去`new Plugin()`，那么便是会去实例化webpack配置plugins所有的插件，那么第一步插件实例化就有了，而插件中的apply方法会在开始编译时依次被调用，并且传入Compiler对象(后面会深入介绍)，然后调用Compiler.run()开始编译。
 
 ## 了解Compiler 和 Compilation
-> * Compiler
-> * 开始编译：通过上一步初始化得到的最终参数，初始化一个Compiler对象，加载插件（依次调用插件中的apply方法），通过执行Compiler.run开始编译
+> * Compiler对象包含了Webpack环境所有的配置信息，包含options，loaders，plugins这些信息，这个对象在webpack启动时被实例化，全局唯一，可以简单理解成就是webpack实例
+> * Compilation代表着一次新的编译，包含当前的模块资源、编译生成的资源，变化的文件，之前我们了解到compilation事件中compilation对象也会提供很多事件给插件做扩展，同时很多事件的的回调中都会将compilation传入，以便使用
+> * Webpack的事件机制应用了观察者模式，Compiler和Compilation同时继承Taptable，所以可以直接在Compiler和Compilation对象广播和监听事件，广播事件`[Compiler | Compilation].apply('event-name', params)`，监听事件`[Compiler | Compilation].plugin('event-name', function(params){...})`
