@@ -38,4 +38,102 @@ categories:
 ## 了解Compiler 和 Compilation
 > * Compiler对象包含了Webpack环境所有的配置信息，包含options，loaders，plugins这些信息，这个对象在webpack启动时被实例化，全局唯一，可以简单理解成就是webpack实例
 > * Compilation代表着一次新的编译，包含当前的模块资源、编译生成的资源，变化的文件，之前我们了解到compilation事件中compilation对象也会提供很多事件给插件做扩展，同时很多事件的的回调中都会将compilation传入，以便使用
-> * Webpack的事件机制应用了观察者模式，Compiler和Compilation同时继承Taptable，所以可以直接在Compiler和Compilation对象广播和监听事件，广播事件`[Compiler | Compilation].apply('event-name', params)`，监听事件`[Compiler | Compilation].plugin('event-name', function(params){...})`
+> * Webpack的事件机制应用了观察者模式，Compiler和Compilation同时继承Taptable，所以可以直接在Compiler和Compilation对象广播和监听事件，广播事件`[Compiler | Compilation].apply('event-name', params)`，监听事件`[Compiler | Compilation].plugin('event-name', function(params){...})`，event-name不能和现有的事件重名
+
+## 开发插件需注意的点
+> * 只要能拿到Compiler或是Compilation对象，就能广播新的事件，供其他插件使用
+> * Compiler或是Compilation对象为同一个引用，一旦修改就会影响后面的插件
+> * 如果事件是异步的，会带两个参数，第二个参数为回调函数，在插件处理完任务时需要调用回调函数通知webpack，才会进入下一个处理流程。如：
+```javascript
+  compiler.plugin('emit',function(compilation, callback) {
+    // 支持处理逻辑
+
+    // 处理完毕后执行 callback 以通知 Webpack 
+    // 如果不执行 callback，运行流程将会一直卡在这不往下执行 
+    callback();
+  });
+```
+## 常用api
+### 读取输出资源、代码块、模块及其依赖
+``` javascript
+class Plugin {
+  apply(compiler) {
+    compiler.plugin('emit', function (compilation, callback) {
+      // compilation.chunks 存放所有代码块，是一个数组
+      compilation.chunks.forEach(function (chunk) {
+        // chunk 代表一个代码块
+        // 代码块由多个模块组成，通过 chunk.forEachModule 能读取组成代码块的每个模块
+        chunk.forEachModule(function (module) {
+          // module 代表一个模块
+          // module.fileDependencies 存放当前模块的所有依赖的文件路径，是一个数组
+          module.fileDependencies.forEach(function (filepath) {
+          });
+        });
+
+        // Webpack 会根据 Chunk 去生成输出的文件资源，每个 Chunk 都对应一个及其以上的输出文件
+        // 例如在 Chunk 中包含了 CSS 模块并且使用了 ExtractTextPlugin 时，
+        // 该 Chunk 就会生成 .js 和 .css 两个文件
+        chunk.files.forEach(function (filename) {
+          // compilation.assets 存放当前所有即将输出的资源
+          // 调用一个输出资源的 source() 方法能获取到输出资源的内容
+          let source = compilation.assets[filename].source();
+        });
+      });
+
+      // 这是一个异步事件，要记得调用 callback 通知 Webpack 本次事件监听处理结束。
+      // 如果忘记了调用 callback，Webpack 将一直卡在这里而不会往后执行。
+      callback();
+    })
+  }
+}
+```
+### 监听文件变化
+``` javascript
+// 当依赖的文件发生变化时会触发 watch-run 事件
+compiler.plugin('watch-run', (watching, callback) => {
+    // 获取发生变化的文件列表
+    const changedFiles = watching.compiler.watchFileSystem.watcher.mtimes;
+    // changedFiles 格式为键值对，键为发生变化的文件路径。
+    if (changedFiles[filePath] !== undefined) {
+      // filePath 对应的文件发生了变化
+    }
+    callback();
+});
+```
+###  为了监听 HTML 文件的变化，我们需要把 HTML 文件加入到依赖列表中，可以怎么做：
+``` javascript
+compiler.plugin('after-compile', (compilation, callback) => {
+  // 把 HTML 文件添加到文件依赖列表，好让 Webpack 去监听 HTML 模块文件，在 HTML 模版文件发生变化时重新启动一次编译
+    compilation.fileDependencies.push(filePath);
+    callback();
+});
+```
+### 修改输出资源
+``` javascript
+// 设置 compilation.assets 的代码如下：
+compiler.plugin('emit', (compilation, callback) => {
+  // 设置名称为 fileName 的输出资源
+  compilation.assets[fileName] = {
+    // 返回文件内容
+    source: () => {
+      // fileContent 既可以是代表文本文件的字符串，也可以是代表二进制文件的 Buffer
+      return fileContent;
+      },
+    // 返回文件大小
+      size: () => {
+      return Buffer.byteLength(fileContent, 'utf8');
+    }
+  };
+  callback();
+});
+// 读取 compilation.assets 的代码如下：
+compiler.plugin('emit', (compilation, callback) => {
+  // 读取名称为 fileName 的输出资源
+  const asset = compilation.assets[fileName];
+  // 获取输出资源的内容
+  asset.source();
+  // 获取输出资源的文件大小
+  asset.size();
+  callback();
+});
+```
