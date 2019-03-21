@@ -137,3 +137,15 @@ compiler.plugin('emit', (compilation, callback) => {
   callback();
 });
 ```
+### 判断webpack使用了哪些插件
+```javascript
+// 判断当前配置使用使用了 ExtractTextPlugin，
+// compiler 参数即为 Webpack 在 apply(compiler) 中传入的参数
+function hasExtractTextPlugin(compiler) {
+  // 当前配置所有使用的插件列表
+  const plugins = compiler.options.plugins;
+  // 去 plugins 中寻找有没有 ExtractTextPlugin 的实例
+  return plugins.find(plugin=>plugin.__proto__.constructor === ExtractTextPlugin) != null;
+}
+```
+### 对于上面常用api的讲解，我们可以知道compiler和compilation在plugin中占据着举足轻重的作用，那么具体它们长什么样子的，我们编写个例子打印出来看看。
