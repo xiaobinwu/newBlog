@@ -6,7 +6,7 @@ categories:
 - webpack
 ---
 ## 什么是Plugin?
-在[Webpack学习－工作原理（上）](http://wushaobin.top/2019/02/12/webpackPrinciple/)一文中我们就已经介绍了`Plugin`的基本概念，同时知道了webpack其实很像一条生产线，要经过一系列处理流程后才能将源文件转换成我们理想的输出结果。而webpack构建过程中，`Plugin`会在特定的时机广播对应的事件，插件可以监听这些事件的发生，`Plugin`在webpack构建流程中就是这样的一个角色。同时我们也介绍了很多整个构建流程会广播的事件，那么这篇文章我们一起详细地学习一下如何编写`Plugin`。
+在[Webpack学习－工作原理（上）](http://wushaobin.top/2019/02/12/webpackPrinciple/)一文中我们就已经介绍了`Plugin`的基本概念，同时知道了webpack其实很像一条生产线，要经过一系列处理流程后才能将源文件转换成我们理想的输出结果。而webpack构建过程中，会在特定的时机广播对应的事件，插件可以监听这些事件的发生，`Plugin`在webpack构建流程中就是这样的一个角色。同时我们也介绍了很多整个构建流程会广播的事件，那么这篇文章我们一起详细地学习一下如何编写`Plugin`。
 
 其实`Plugin`本质上就是一个class，一个最基础的`Plugin`代码如下：
 ``` javascript
@@ -148,4 +148,9 @@ function hasExtractTextPlugin(compiler) {
   return plugins.find(plugin=>plugin.__proto__.constructor === ExtractTextPlugin) != null;
 }
 ```
-### 对于上面常用api的讲解，我们可以知道compiler和compilation在plugin中占据着举足轻重的作用，那么具体它们长什么样子的，我们编写个例子打印出来看看。
+### 对于上面常用api的讲解，我们可以知道compiler和compilation在plugin中占据着举足轻重的作用，那么具体它们长什么样子的，我们编写个例子打印出来看看,下面以`extract-text-webpack-plugin`插件进行断点调试的截图，可以来看看这两个分别打印出来的东西，
+![compiler](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/webpack/1.png)
+![compilation](http://bin-blog.oss-cn-shenzhen.aliyuncs.com/webpack/2.png)
+
+## 总结
+一般情况下，我们是不需要去写`Plugin`，但是有时候我们有些业务需求是没有插件可以满足的，那么我们便得需要自己去写`Plugin`，那了解`Plugin`的一些相关知识点就是有必要的，我们不一定要每个钩子或是API都相当熟，但是我们需要思路，了解如何编写`Plugin`，也是有必要的，`Plugin`中最重要的compiler和compilation，一个`Plugin`插件也就是围绕着这个去扩展，对应详细内容可以去webpack官网了解，[compiler链接](https://webpack.docschina.org/api/compiler-hooks/)，[compilation链接](https://webpack.docschina.org/api/compilation-hooks/)。
