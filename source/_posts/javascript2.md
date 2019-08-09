@@ -186,3 +186,43 @@ myObject.b // 4
 4 in [2,2,6,8,0] // true
 ```
 判断是否可枚举 `myObject.propertyIsEnumerable('a')`
+
+### @@iterator迭代器对象
+`for...of`被访问的对象请求一个迭代器对象，然后通过.next()方法遍历所有返回来的值
+数组内置有`@@iterator`，所以可以直接使用`for...of`。
+使用内置`@@iterator`遍历数组：
+```javascript
+var myArray = [1,2,3];
+var it = myArray[Symbol.iterator](); // 返回迭代器函数
+it.next(); // { value: 1, done: false }
+it.next(); // { value: 2, done: false }
+it.next(); // { value: 3, done: false }
+it.next(); // { done: true }
+```
+普通对象不含有`@@iterator`，无法使用`for...of`，可以进行改造，
+```javascript
+var myObject = { a: 2, b: 3 };
+Object.defineProperty(myObject, Symbol.iterator, {
+    enumerable: false,
+    writable: false,
+    configuabale: false,
+    value: function() {
+        var o = this;
+        var idx = 0;
+        var ks = Object.keys(o);
+        return {
+            next: function() {
+                return {
+                    value: o[ks[idx++]],
+                    done: (idx > ks.length)
+                };
+            }
+        }
+    }
+});
+vat it = myObject[Symbol.iterator]();
+it.next(); // { value: 2, done: false }
+it.next(); // { value: 3, done: false }
+it.next(); // { done: true }
+
+```
