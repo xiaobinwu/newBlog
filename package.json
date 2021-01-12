@@ -5,6 +5,9 @@
   "hexo": {
     "version": "3.9.0"
   },
+  "scripts": {
+    "publish": "hexo g -d"
+  },
   "dependencies": {
     "gitment": "^0.0.3",
     "hexo": "^3.7.0",
